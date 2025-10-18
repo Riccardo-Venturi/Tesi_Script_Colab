@@ -4,9 +4,6 @@
 Questo repository contiene il codice sorgente sviluppato per la tesi di Laurea Magistrale in Ingegneria Meccanica di **Riccardo Venturi**, discussa presso l'**Università degli Studi di Cagliari** nell'Anno Accademico 2023-2024.
 
 Il progetto affronta la sfida della quantificazione automatica del danno indotto dalla foratura (delaminazione) in materiali compositi a fibra di carbonio (CFRP), un'analisi critica per settori ad alta tecnologia come l'aerospaziale e l'automotive.
-
----
-
 ## 📜 Indice
 
 - [Contesto e Obiettivi](#contesto-e-obiettivi)
@@ -15,6 +12,7 @@ Il progetto affronta la sfida della quantificazione automatica del danno indotto
 - [⚙️ Installazione e Setup](#️-installazione-e-setup)
 - [🚀 Utilizzo](#-utilizzo)
 - [📄 Citazione](#-citazione)
+- [Pesi modelli](#-Pesi/dataset)
 - [⚖️ Licenza](#️-licenza)
 
 ---
@@ -90,7 +88,25 @@ Per riprodurre i risultati della tesi, eseguire i notebook e gli script seguendo
 **Nota:** I percorsi ai dati all'interno dei notebook sono hardcoded per l'ambiente Google Colab con Google Drive montato. Sarà necessario adattare questi percorsi al proprio setup locale.
 
 ---
+## Pesi/modelli/dataset
+-------------------------------------------------------------------------------------------------
+If you look for weights and dataset, avaible on huggingface
+# CFRP-ROIA: Machine Learning Pipelines for CFRP Damage Analysis
 
+**Author:** Riccardo Venturi  cagliari 2025
+**Thesis Repository (code only)** — This repository contains the scripts used for training and evaluating all pipelines (YOLOv8, UNet++, MLP–LSTM).
+
+🧠 **Model Weights and Dataset**  
+The trained weights and processed datasets are publicly available at:
+
+> Venturi R. (2025). *CFRP-ROIA Weights and Datasets.* Hugging Face Hub.,
+> url          = { https://huggingface.co/Riccardo99999/CFRP-ROIA-weights },
+> doi          = { 10.57967/hf/6729 },
+
+----------------------------------------------------------------------------------------------------
+
+
+---
 ## 📄 Citazione
 
 Se utilizzi questo codice per la tua ricerca, ti preghiamo di citare il lavoro come segue:
