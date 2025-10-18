@@ -104,7 +104,14 @@ The trained weights and processed datasets are publicly available at:
 > doi          = { 10.57967/hf/6729 },
 
 ----------------------------------------------------------------------------------------------------
-
+@misc{riccardoventuri_2025,
+	author       = { RiccardoVenturi },
+	title        = { RPOS-dataset (Revision 2709c43) },
+	year         = 2025,
+	url          = { https://huggingface.co/datasets/Riccardo99999/RPOS-dataset },
+	doi          = { 10.57967/hf/6749 },
+	publisher    = { Hugging Face }
+}
 
 ---
 ## 📄 Citazione
