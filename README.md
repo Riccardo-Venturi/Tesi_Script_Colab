@@ -1,7 +1,7 @@
 # Tesi_Script_Colab
 # Studio Comparativo di Pipeline di Deep Learning per la Valutazione Automatica del Danno da Foratura in Compositi CFRP
 
-Questo repository contiene il codice sorgente sviluppato per la tesi di Laurea Magistrale in Ingegneria Meccanica di **Riccardo Venturi**, discussa presso l'**Università degli Studi di Cagliari** nell'Anno Accademico 2023-2024.
+Questo repository contiene il codice sorgente sviluppato per la tesi di Laurea Triennale(ma è figa da magistrale) in Ingegneria Meccanica di **Riccardo Venturi**, discussa presso l'**Università degli Studi di Cagliari** nell'Anno Accademico 2023-2024.
 
 Il progetto affronta la sfida della quantificazione automatica del danno indotto dalla foratura (delaminazione) in materiali compositi a fibra di carbonio (CFRP), un'analisi critica per settori ad alta tecnologia come l'aerospaziale e l'automotive.
 ## 📜 Indice
