@@ -1,4 +1,159 @@
 # Tesi_Script_Colab
+English: by Riccardo Venturi cagliari 2026
+# Comparative Study of Deep Learning Pipelines for Automatic Assessment of Drilling-Induced Damage in CFRP Composites
+
+This repository contains the source code developed for the **Bachelor’s thesis** (though it’s honestly Master’s-level) in Mechanical Engineering by **Riccardo Venturi**, defended at the **University of Cagliari** in the Academic Year 2023–2024.
+
+The project addresses the challenge of automatic quantification of drilling-induced damage (delamination) in carbon fiber reinforced polymer (CFRP) materials, a critical analysis for high-technology sectors such as aerospace and automotive industries.
+
+## 📜 Table of Contents
+
+- [Context and Objectives](#context-and-objectives)
+- [Repository Structure](#repository-structure)
+- [Pipeline Workflow (ROIA)](#pipeline-workflow-roia)
+- [⚙️ Installation and Setup](#️-installation-and-setup)
+- [🚀 Usage](#-usage)
+- [📄 Citation](#-citation)
+- [Model Weights](#-weightsdataset)
+- [⚖️ License](#️-license)
+
+---
+
+## Context and Objectives
+
+Traditional inspection of subsurface defects in CFRP composites, often based on Non-Destructive Testing (NDT), is a manual, subjective process with low reproducibility.  
+The objective of this thesis was the development and validation of an **end-to-end computational pipeline** to automate damage analysis.
+
+Starting from an experimental dataset of radiographic scans and process data (drilling force), the work focused on the development of the **ROIA (Radiograph-Only Integrated Analysis)** architecture: a sequence of Computer Vision and Machine Learning modules capable of:
+
+1. Extracting and normalizing data from heterogeneous raw scans.
+2. Segmenting the drilled hole and delamination damage with high precision.
+3. Extracting a robust set of quantitative, engineering-relevant features.
+4. Imputing missing process data.
+5. Predicting future damage evolution based on historical data.
+
+---
+
+## 📂 Repository Structure
+
+The repository is organized into folders reflecting the main phases of the analysis pipeline.
+
+---
+
+## Pipeline Workflow (ROIA)
+
+The main pipeline developed (ROIA) operates exclusively in the radiographic domain and concatenates the following modules in an MLOps chain:
+
+1. **Detection and Normalization (Module `01`)**:  
+   A **YOLOv8** network localizes the holes in raw scans. A K-Means clustering algorithm enforces a reproducible **boustrophedonic** ordering. Finally, a **scale-normalized cropping algorithm** generates a dataset of 512×512 patches, ensuring that each hole has a constant apparent size.
+
+2. **Damage Segmentation (Module `02`)**:  
+   The normalized patches are processed by a **UNet++** network. The model is first pre-trained on a large set of automatically generated masks (`Mask Factory`) and then specialized via a **hybrid “foveal” training**, combining full images (for global context) and 128×128 detail patches (for micro-scale damage structures).
+
+3. **Feature Extraction (Module `03`)**:  
+   A **per-image auto-calibration algorithm** analyzes the segmentation masks. Using the known hole diameter (6 mm) as an internal “ruler,” it converts pixel-based measurements (areas, diameters, Hu moments) into physical units (mm², mm), ensuring metrological robustness.
+
+4. **Imputation and Prediction (Module `04`)**:
+   * A **Multi-Layer Perceptron (MLP)** is used to impute missing drilling force values, exploiting correlations with geometric damage features.
+   * A **Long Short-Term Memory (LSTM)** network, trained with a **Quantile Loss**, models the sequential evolution of damage. This approach predicts not only the trend but also a prediction interval (risk), capturing extreme events.
+
+---
+
+## ⚙️ Installation and Setup
+
+To run the scripts and notebooks in this repository, it is recommended to create a virtual environment to manage dependencies.
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Riccardo-Venturi/Tesi_Script_Colab.git
+   cd Tesi_Script_Colab
+
+
+2. **Create a virtual environment (recommended):**
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies:**
+   It is strongly recommended to create a `requirements.txt` file with the required libraries. The main dependencies include:
+
+   ```bash
+   pip install torch torchvision ultralytics segmentation-models-pytorch albumentations opencv-python-headless pandas scikit-learn matplotlib lightgbm tensorflow
+   ```
+
+---
+
+## 🚀 Usage
+
+To reproduce the thesis results, run the notebooks and scripts following the numerical order of the folders:
+
+1. **Phase 1 (`01_data_preprocessing`)**: Generate normalized and ordered patches starting from raw scans.
+2. **Phase 2 (`02_segmentation_unet++`)**: Use the patches to train the segmentation model.
+3. **Phase 3 (`03_feature_extraction`)**: Run the feature extractor on the generated masks.
+4. **Phase 4 (`04_predictive_modeling_lstm`)**: Use the final feature CSV to train the predictive model.
+
+**Note:** Data paths inside the notebooks are hardcoded for the Google Colab environment with Google Drive mounted. These paths must be adapted for a local setup.
+
+---
+
+## Weights / Models / Dataset
+
+---
+
+If you are looking for model weights and datasets, they are available on Hugging Face.
+
+# CFRP-ROIA: Machine Learning Pipelines for CFRP Damage Analysis
+
+**Author:** Riccardo Venturi, Cagliari, 2025
+**Thesis Repository (code only)** — This repository contains the scripts used for training and evaluating all pipelines (YOLOv8, UNet++, MLP–LSTM).
+
+🧠 **Model Weights and Dataset**
+The trained weights and processed datasets are publicly available at:
+
+> Venturi R. (2025). *CFRP-ROIA Weights and Datasets.* Hugging Face Hub.
+> url          = { [https://huggingface.co/Riccardo99999/CFRP-ROIA-weights](https://huggingface.co/Riccardo99999/CFRP-ROIA-weights) },
+> doi          = { 10.57967/hf/6729 },
+
+---
+
+```bibtex
+@misc{riccardoventuri_2025,
+  author       = {Riccardo Venturi},
+  title        = {RPOS-dataset (Revision 2709c43)},
+  year         = 2025,
+  url          = {https://huggingface.co/datasets/Riccardo99999/RPOS-dataset},
+  doi          = {10.57967/hf/6749},
+  publisher    = {Hugging Face}
+}
+```
+
+---
+
+## 📄 Citation
+
+If you use this code in your research, please cite the work as follows:
+
+```bibtex
+@mastersthesis{Venturi2024CFRP,
+  author    = {Riccardo Venturi},
+  title     = {Comparative study of deep learning pipelines for the automatic assessment of drilling-induced damage in CFRP composites},
+  school    = {University of Cagliari},
+  year      = {2024},
+  address   = {Cagliari, Italy},
+  month     = {July},
+  howpublished = {\url{https://github.com/Riccardo-Venturi/Tesi_Script_Colab}}
+}
+```
+
+Matricola 65221
+
+Italiano
+
+
+# Tesi_Script_Colab
+
 # Studio Comparativo di Pipeline di Deep Learning per la Valutazione Automatica del Danno da Foratura in Compositi CFRP
 
 Questo repository contiene il codice sorgente sviluppato per la tesi di Laurea Triennale(ma è figa da magistrale) in Ingegneria Meccanica di **Riccardo Venturi**, discussa presso l'**Università degli Studi di Cagliari** nell'Anno Accademico 2023-2024.
